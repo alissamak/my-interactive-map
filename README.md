@@ -3,13 +3,13 @@
 This is the final activity for Lesson 12 to Build an Interactive Map by user location.
 
 Interactive Map should have functions to:
-    1. Get user location
-    2. Pin point coords of location
-    3. Use user's coords to display map from Leaflet
-    4. Create 4 layers on map: coffee, restaurant, hotel, and market
-    5. Use Foursquare API to pull the pins of each layer
-    6. Display four views in dropdown menu
-    7. Display button to select the dropdown menu selection
+1. Get user location
+2. Pin point coords of location
+3. Use user's coords to display map from Leaflet
+4. Create 4 layers on map: coffee, restaurant, hotel, and market
+5. Use Foursquare API to pull the pins of each layer
+6. Display four views in dropdown menu
+7. Display button to select the dropdown menu selection
 
 Optional/Bonus:
 1. Improve Css styling
