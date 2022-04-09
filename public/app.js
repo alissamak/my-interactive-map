@@ -1,8 +1,7 @@
-
 // foursquare key: fsq3883VuFRctHJpVP1ZKXU5feHeGKjhWQtREQmPUxlWm8o=
 //get user location
 const myMap = L.map('map');
-async function userCoord(){
+async function userCoord(lat, lng){
     const location = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
     })
@@ -32,25 +31,41 @@ const baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.pn
 }).addTo(myMap);
 
 //add eventListener for businesses
-const coffee = document.querySelector('.coffee');
-const restaurant = document.querySelector('.restuarnt');
-const hotel = document.querySelector('.hotel');
-const market = document.querySelector('.market');
+const coffee = document.querySelector('#coffee');
+const restaurant = document.querySelector('#restaurant');
+const hotel = document.querySelector('#hotel');
+const market = document.querySelector('#market');
+const selections = document.querySelectorAll('.business')
+// console.log(selections)
 
-const goBtn = document.querySelector('.go-btn');
-const clickBtn = goBtn.addEventListener('click', () => {
-    
-});
+let goBtn = document.querySelector('.go-btn');
+// goBtn.forEach(business => {
+//     business.addEventListener('click', () => {
+//         getBusiness(business.value)
+        
+//     })
+//     console.log(business.value)
+//     console.log(business)
+// })
+// let coffeeLayer = coffee.baseLayer
+// let restaurantLayer = restaurant.baseLayer
+// let hotelLayer = hotel.baseLayer
+// let marketLayer = market.baseLayer
 
-// //fetching foursquare apis
-// var businessStats = {
-//         business: ["coffee", "restaurant", "hotel", "market"],
-//         limit: 10,
-//         // lat: ,
-//         // long ,
-// }
 
-async function getcoffee(){
+// goBtn.addEventListener('click', () => {
+//     let coffeeLayer = coffee.addTo(myMap)
+//     getBusiness(coffeeLayer)
+// })
+
+
+//fetching foursquare apis
+async function getBusiness(business, lat, lon, limit){
+    // businessArray = ["coffee", "restaurant", "hotel", "market"]
+    // businessArray.forEach(element => {
+    //     console.log(element)
+    // })
+   
     const options = {
         method: 'GET',
         headers: {
@@ -59,26 +74,31 @@ async function getcoffee(){
         }
       };
       
-    // let response = fetch(`https://api.foursquare.com/v3/places/search?query=${business}&ll=${lat}%2C${lon}&radius=10000&limit=${limit}`, options)     
-    let response = await fetch('https://api.foursquare.com/v3/places/search?query=coffee&ll=35.83%2C-79.02&limit=10', options) 
+    // let response = await fetch(`https://api.foursquare.com/v3/places/search?query=${business}&ll=${lat}%2C${lon}&limit=${limit}`, options)     
+    let response = await fetch(`https://api.foursquare.com/v3/places/search?query=coffee&ll=35.83%2C-79.02&limit=10`, options) 
     let data = await response.text();
     let parsedData = JSON.parse(data);
-    let coffee = parsedData.results;
-    console.log(coffee);
-    coffee.forEach(element => {
-        let coffeeLat = element.geocodes.main.latitude;
-        let coffeeLng = element.geocodes.main.longitude;
-        let coffeeName = element.name;
+    business = parsedData.results;
+    console.log(business);
+    //adding markers for each business
+    business.forEach(element => {
+        let businessLat = element.geocodes.main.latitude;
+        let businessLng = element.geocodes.main.longitude;
+        let businessName = element.name;
         // console.log(element.geocodes.main)
-        let coffeeCoords = [coffeeLat, coffeeLng]
+        let businessCoords = [businessLat, businessLng]
         
-        const marker = L.marker(coffeeCoords)
-        marker.addTo(myMap).bindPopup(coffeeName).openPopup()
+        const marker = L.marker(businessCoords)
+        marker.addTo(myMap).bindPopup(businessName).openPopup()
     });
-    // return coffee;
-
+    
+    // coffee.addEventListener('click', () => {
+    //     this.getcoffee()
+    // }); 
+    
 }
-getcoffee();
+// getBusiness()
+
 
 // async function getcoffee(){
 //     const options = {
