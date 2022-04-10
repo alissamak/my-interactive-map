@@ -29,13 +29,14 @@
     
     <body>
         <form id="business-list">
-            <select id="business-selections">
-                <option class='business' id='coffee' value="coffee">Coffee</option>
-                <option class='business' id='restaurant' value="restaurant">Restaurants</option>
-                <option class='business' id='hotel' value="hotel">Hotels</option>
-                <option class='business' id='market' value="market">Markets</option>
+            <select name= "businesses" id="business-selections" onchange="userCoord()">
+                <option class='business' value="null">Your Location</option>
+                <option class='business' value="coffee">Coffee</option>
+                <option class='business' value="restaurant">Restaurants</option>
+                <option class='business' value="hotel">Hotels</option>
+                <option class='business' value="market">Markets</option>
             </select>
-            <button class="go-btn" onclick="getBusiness()">Go</button>
+            <!-- <button class="go-btn">Go</button> -->
         </form>    
         <br>
         <div id="map"></div>
